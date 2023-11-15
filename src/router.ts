@@ -1,9 +1,9 @@
 import { createRouter, createWebHistory } from "vue-router";
 import Home from "./Home.vue";
-import ArtSupplyItem from "./ArtSupplyItem.vue";
-import BookItem from "./BookItem.vue";
-import KitchenwareItem from "./KitchenwareItem.vue";
-import MusicItem from "./MusicItem.vue";
+import ArtSupply from "./ArtSupply.vue";
+import Book from "./Book.vue";
+import Kitchenware from "./Kitchenware.vue";
+import Music from "./Music.vue";
 
 const routes = [
   {
@@ -12,19 +12,19 @@ const routes = [
   },
   {
     path: "/artsupplies",
-    component: ArtSupplyItem,
+    component: ArtSupply
   },
   {
     path: "/books",
-    component: BookItem,
+    component: Book,
   },
   {
     path: "/kitchenware",
-    component: KitchenwareItem,
+    component: Kitchenware,
   },
   {
     path: "/music",
-    component: MusicItem,
+    component: Music,
   },
 
 ];

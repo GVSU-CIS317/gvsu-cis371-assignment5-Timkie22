@@ -1,15 +1,15 @@
 <template>
-  <div id="art-supplies">
-    <div class="category-header artSuppliesHeader"><h1>Art Supplies</h1></div>
+  <div id="music">
+    <div class="category-header musicHeader"><h1>Music</h1></div>
     <div class="items">
-      <ArtSupplyItem v-for="item in artSuppliesItems" :key="item.name" :item="item" />
+      <MusicItem v-for="item in musicItems" :key="item.name" :item="item" />
     </div>
   </div>
 </template>
 
 <script lang="ts" setup>
 import { ref, onBeforeMount } from "vue";
-import ArtSupplyItem from "./ArtSupplyItem.vue"; 
+import MusicItem from "./components/MusicItem.vue"; // Stellen Sie sicher, dass Sie eine MusicItem-Komponente haben
 import "font-awesome/css/font-awesome.min.css";
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "./main.ts";
@@ -23,12 +23,12 @@ interface StoreItem {
   image: string;
   category: string;
 }
-const artSuppliesItems = ref<StoreItem[]>([]);
+const musicItems = ref<StoreItem[]>([]);
 
 onBeforeMount(async () => {
-  const artSuppliesCollection = collection(db, "art-supplies"); 
-  const artSuppliesSnapshot = await getDocs(artSuppliesCollection);
-  artSuppliesItems.value = artSuppliesSnapshot.docs.map(
+  const musicCollection = collection(db, "music"); // Aktualisiert auf die Musiksammlung
+  const musicSnapshot = await getDocs(musicCollection);
+  musicItems.value = musicSnapshot.docs.map(
     (doc) => doc.data() as StoreItem
   );
 });
@@ -42,8 +42,8 @@ onBeforeMount(async () => {
     1px 1px 0 black;
   color: white;
 }
-.artSuppliesHeader {
-  background-image: url('https://cdn.britannica.com/35/179035-131-9646BA4D/Oil-paints-consistency-paste-variety-colors-brushes.jpg'); 
+.musicHeader {
+  background-image: url('https://images.musicstore.de/images/1280/j-und-d-e-gitarre-st-rock-hss-bk-black_1_GIT0015567-000.jpg'); 
 }
 
 .items {

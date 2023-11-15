@@ -28,10 +28,10 @@
 
 <script lang="ts" setup>
 import { ref, onBeforeMount } from "vue";
-import ArtSupplyItem from "./ArtSupplyItem.vue";
-import BookItem from "./BookItem.vue";
-import KitchenwareItem from "./KitchenwareItem.vue";
-import MusicItem from "./MusicItem.vue";
+import ArtSupplyItem from "./components/ArtSupplyItem.vue";
+import BookItem from "./components/BookItem.vue";
+import KitchenwareItem from "./components/KitchenwareItem.vue";
+import MusicItem from "./components/MusicItem.vue";
 import "font-awesome/css/font-awesome.min.css";
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "./main.ts";

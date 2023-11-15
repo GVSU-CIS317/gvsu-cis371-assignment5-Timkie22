@@ -1,15 +1,15 @@
 <template>
-  <div id="music">
-    <div class="category-header musicHeader"><h1>Music</h1></div>
+  <div id="books">
+    <div class="category-header booksHeader"><h1>Books</h1></div>
     <div class="items">
-      <MusicItem v-for="item in musicItems" :key="item.name" :item="item" />
+      <BookItem v-for="item in bookItems" :key="item.name" :item="item" />
     </div>
   </div>
 </template>
 
 <script lang="ts" setup>
 import { ref, onBeforeMount } from "vue";
-import MusicItem from "./MusicItem.vue"; // Stellen Sie sicher, dass Sie eine MusicItem-Komponente haben
+import BookItem from "./components/BookItem.vue"; 
 import "font-awesome/css/font-awesome.min.css";
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "./main.ts";
@@ -23,12 +23,12 @@ interface StoreItem {
   image: string;
   category: string;
 }
-const musicItems = ref<StoreItem[]>([]);
+const bookItems = ref<StoreItem[]>([]);
 
 onBeforeMount(async () => {
-  const musicCollection = collection(db, "music"); // Aktualisiert auf die Musiksammlung
-  const musicSnapshot = await getDocs(musicCollection);
-  musicItems.value = musicSnapshot.docs.map(
+  const booksCollection = collection(db, 'books'); // Change to the books collection
+  const booksSnapshot = await getDocs(booksCollection);
+  bookItems.value = booksSnapshot.docs.map(
     (doc) => doc.data() as StoreItem
   );
 });
@@ -42,8 +42,8 @@ onBeforeMount(async () => {
     1px 1px 0 black;
   color: white;
 }
-.musicHeader {
-  background-image: url('https://images.musicstore.de/images/1280/j-und-d-e-gitarre-st-rock-hss-bk-black_1_GIT0015567-000.jpg'); 
+.booksHeader {
+  background-image: url('https://cdn.elearningindustry.com/wp-content/uploads/2016/05/top-10-books-every-college-student-read-1024x640.jpeg'); 
 }
 
 .items {

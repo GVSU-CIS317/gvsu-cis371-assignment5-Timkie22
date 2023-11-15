@@ -1,15 +1,15 @@
 <template>
-  <div id="books">
-    <div class="category-header booksHeader"><h1>Books</h1></div>
+  <div id="kitchenware">
+    <div class="category-header kitchenwareHeader"><h1>Kitchenware</h1></div>
     <div class="items">
-      <BookItem v-for="item in bookItems" :key="item.name" :item="item" />
+      <KitchenwareItem v-for="item in kitchenwareItems" :key="item.name" :item="item" />
     </div>
   </div>
 </template>
 
 <script lang="ts" setup>
 import { ref, onBeforeMount } from "vue";
-import BookItem from "./BookItem.vue"; 
+import KitchenwareItem from "./components/KitchenwareItem.vue"; 
 import "font-awesome/css/font-awesome.min.css";
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "./main.ts";
@@ -23,12 +23,12 @@ interface StoreItem {
   image: string;
   category: string;
 }
-const bookItems = ref<StoreItem[]>([]);
+const kitchenwareItems = ref<StoreItem[]>([]);
 
 onBeforeMount(async () => {
-  const booksCollection = collection(db, "books"); // Change to the books collection
-  const booksSnapshot = await getDocs(booksCollection);
-  bookItems.value = booksSnapshot.docs.map(
+  const kitchenwareCollection = collection(db, "kitchenware"); // Update to the new category collection
+  const kitchenwareSnapshot = await getDocs(kitchenwareCollection);
+  kitchenwareItems.value = kitchenwareSnapshot.docs.map(
     (doc) => doc.data() as StoreItem
   );
 });
@@ -42,8 +42,8 @@ onBeforeMount(async () => {
     1px 1px 0 black;
   color: white;
 }
-.booksHeader {
-  background-image: url('https://cdn.elearningindustry.com/wp-content/uploads/2016/05/top-10-books-every-college-student-read-1024x640.jpeg'); 
+.kitchenwareHeader {
+  background-image: url('https://images.unsplash.com/photo-1610701596061-2ecf227e85b2?auto=format&fit=crop&q=80&w=1000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8a2l0Y2hlbndhcmV8ZW58MHx8MHx8fDA%3D'); 
 }
 
 .items {
