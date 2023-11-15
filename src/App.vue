@@ -8,7 +8,6 @@
     <router-link to="/" class="nav-item">Home</router-link>
     <router-link to="/books" class="nav-item">Books</router-link>
     <router-link to="/music" class="nav-item">Music</router-link>
-    <router-link to="/art-supplies" class="nav-item">Art Supplies</router-link>
     <router-link to="/kitchenware" class="nav-item">Kitchenware</router-link>
   </nav>
   <main class="main-content">
@@ -79,25 +78,7 @@ const items = ref([
     stock: 60,
     image: "https://m.media-amazon.com/images/I/71HT4O3O6xL._AC_UF1000,1000_QL80_.jpg"
   },
-  // Kunstbedarf
-  {
-    name: 'Professional Paint Set',
-    category: 'art-supplies',
-    description: 'High-quality paints for professional artists.',
-    price: 35,
-    rating: 4.9,
-    stock: 30,
-    image: 'https://m.media-amazon.com/images/I/91vyjbUfxdL.jpg'
-  },
-  {
-    name: 'Eco-Friendly Sketchbook',
-    category: 'art-supplies',
-    description: 'Sustainable sketchbook for all your drawing needs.',
-    price: 8,
-    rating: 4.2,
-    stock: 80,
-    image: 'https://m.media-amazon.com/images/I/41DnVhMwVSL._AC_UF894,1000_QL80_.jpg'
-  },
+  
   // Küchenutensilien
   {
     name: 'Chef\'s Knife Set',

@@ -1,27 +1,66 @@
 <template>
     <div class="groceries-item">
       <div class="image-wrapper">
-        <img :src="item.image" :alt="item.name" />
+        <img :src="isEditing ? editableItem.image : item.image" :alt="item.name" />
       </div>
-      <div class="info-wrapper">
+      <div class="info-wrapper" v-if="!isEditing">
         <p>
           <b>{{ item.name }}: </b>{{ item.description }}<br />
           <span v-for="n in 5" :key="n">
-            <i
-              class="fa"
-              :class="['fa-star', n <= item.rating ? '' : 'fa-star-o']"
-              >&nbsp;</i
-            >
+            <i class="fa" :class="['fa-star', n <= item.rating ? '' : 'fa-star-o']"></i>
           </span>
         </p>
         <p>${{ item.price.toFixed(2) }}<br />{{ item.stock }} in stock.</p>
+        <button @click="enableEditMode">Modify</button>
+        <button @click="confirmDeletion">Delete</button>
+      </div>
+      <div class="info-wrapper" v-else>
+        <!-- Editable fields -->
+        <input v-model="editableItem.name" placeholder="Name" />
+        <textarea v-model="editableItem.description" placeholder="Description"></textarea>
+        <input type="number" v-model.number="editableItem.price" placeholder="Price" />
+        <input type="number" v-model.number="editableItem.rating" placeholder="Rating" />
+        <input type="number" v-model.number="editableItem.stock" placeholder="Stock" />
+        <input v-model="editableItem.image" placeholder="Image URL" />
+        <button @click="confirmUpdate">Update</button>
+        <button @click="cancelEdit">Cancel</button>
       </div>
     </div>
   </template>
   
+  
   <script lang="ts" setup>
-  const { item } = defineProps(["item"]);
-  </script>
+import { ref, defineProps } from 'vue';
+import { doc, deleteDoc, updateDoc } from "firebase/firestore";
+import { db } from "../main.ts";
+
+const props = defineProps(["item"]);
+const isEditing = ref(false);
+const editableItem = ref({ ...props.item });
+
+const enableEditMode = () => {
+  isEditing.value = true;
+  editableItem.value = { ...props.item };
+};
+
+const confirmDeletion = async () => {
+  if (window.confirm(`Are you sure you want to delete ${props.item.name}?`)) {
+    await deleteDoc(doc(db, 'books', props.item.id));
+    // Event emission to parent component for further handling
+  }
+};
+
+const confirmUpdate = async () => {
+  if (window.confirm(`Are you sure you want to update ${props.item.name}?`)) {
+    await updateDoc(doc(db, 'books', props.item.id), editableItem.value);
+    isEditing.value = false;
+  }
+};
+
+const cancelEdit = () => {
+  isEditing.value = false;
+};
+</script>
   
   <style scoped>
   .groceries-item {

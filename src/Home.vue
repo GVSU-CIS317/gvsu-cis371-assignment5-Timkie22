@@ -1,11 +1,6 @@
 <template>
   <!-- ... other category sections ... -->
-  <div id="artsupplies">
-    <div class="category-header artSuppliesHeader"><h1>Art Supplies</h1></div>
-    <div class="items">
-      <ArtSupplyItem v-for="item in artSuppliesItems" :key="item.name" :item="item" />
-    </div>
-  </div>
+  
   <div id="books">
     <div class="category-header bookHeader"><h1>Books</h1></div>
     <div class="items">
@@ -28,7 +23,6 @@
 
 <script lang="ts" setup>
 import { ref, onBeforeMount } from "vue";
-import ArtSupplyItem from "./components/ArtSupplyItem.vue";
 import BookItem from "./components/BookItem.vue";
 import KitchenwareItem from "./components/KitchenwareItem.vue";
 import MusicItem from "./components/MusicItem.vue";
@@ -45,19 +39,13 @@ interface StoreItem {
   image: string;
   category: string;
 }
-const artSuppliesItems = ref<StoreItem[]>([]);
 const bookItems = ref<StoreItem[]>([]);
 const kitchenwareItems = ref<StoreItem[]>([]);
 const musicItems = ref<StoreItem[]>([]);
 
 onBeforeMount(async () => {
   try {
-    const artSuppliesCollection = collection(db, "artsupplies");
-    const artSuppliesSnapshot = await getDocs(artSuppliesCollection);
-    artSuppliesItems.value = artSuppliesSnapshot.docs.map(
-      (doc) => doc.data() as StoreItem
-    );
-
+  
     const booksCollection = collection(db, "books");
     const booksSnapshot = await getDocs(booksCollection);
     bookItems.value = booksSnapshot.docs.map(
@@ -89,9 +77,7 @@ onBeforeMount(async () => {
   color: white;
 }
 /* ... other styles ... */
-.artSuppliesHeader {
-  background-image: url( https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRzPI5tniFi4xkRHqwSWSZ8oMPyFIxmcc05kwYg5emk10TlF0FF5nb9efvNgLdTvDMqVd4&usqp=CAU)
-}
+
 .bookHeader {
   background-image: url(https://szene-hamburg.com/wp-content/uploads/2022/12/Bu%CC%88cher-c-unsplash-gaman-alice-klein.jpg )
 }

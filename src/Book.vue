@@ -25,6 +25,8 @@ interface StoreItem {
 }
 const bookItems = ref<StoreItem[]>([]);
 
+
+
 onBeforeMount(async () => {
   const booksCollection = collection(db, 'books'); // Change to the books collection
   const booksSnapshot = await getDocs(booksCollection);
